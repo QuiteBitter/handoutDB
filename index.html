@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
  <head>
-  <title>IntelliJ Markdown Preview</title>
+  <title>HandoutDB</title>
   <meta http-equiv="Content-Security-Policy" content="default-src 'none';
 script-src 'self';
 style-src 'unsafe-inline';
@@ -17,82 +17,102 @@ child-src 'none';">
   <style>/* Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file. */ .run-icon &gt; img { max-width: 1em; vertical-align: text-top; margin-right: 0.3em; } .code-block { position: absolute; left: 1em; } .hidden { display: none; }</style>
  </head>
  <body>
-  <div md-src-pos="0..2072">
-   <h1 id="handout-datetime-in-sql" md-src-pos="0..27">Handout: Date/Time in SQL</h1>
-   <h2 id="1-grundlagen" md-src-pos="29..45">1. Grundlagen</h2>
-   <p md-src-pos="46..71"><strong md-src-pos="46..71">Datentypen verstehen:</strong></p>
-   <ul md-src-pos="73..444">
-    <li md-src-pos="73..128"><code md-src-pos="75..81">DATE</code>: Speichert das Datum in der Form <code md-src-pos="115..127">YYYY-MM-DD</code>.</li>
-    <li md-src-pos="129..184"><code md-src-pos="131..137">TIME</code>: Speichert die Uhrzeit in der Form <code md-src-pos="173..183">HH:MM:SS</code>.</li>
-    <li md-src-pos="185..262"><code md-src-pos="187..197">DATETIME</code>: Kombiniert Datum und Uhrzeit in der Form <code md-src-pos="240..261">YYYY-MM-DD HH:MM:SS</code>.</li>
-    <li md-src-pos="263..373"><code md-src-pos="265..276">TIMESTAMP</code>: Speichert Datum und Uhrzeit, unterstützt Zeitzonen; genaue Speicherung hängt vom SQL-System ab.</li>
-    <li md-src-pos="374..444"><code md-src-pos="376..382">YEAR</code>: Speichert ein Jahr in einem Zwei- oder Vierstelligen Format.</li>
+  <div md-src-pos="0..4196">
+   <h1 id="handout-datetime-in-sql-von-robert-schulz" md-src-pos="0..45">Handout: Date/Time in SQL von Robert Schulz</h1>
+   <h2 id="einführung" md-src-pos="47..60">Einführung</h2>
+   <p md-src-pos="62..474"><span md-src-pos="62..137">Datum und Uhrzeit spielen eine entscheidende Rolle in Datenbankanwendungen,</span> <span md-src-pos="138..160">da sie es ermöglichen,</span> <span md-src-pos="161..179">Zeitpunkte präzise</span> <span md-src-pos="180..227">festzulegen und damit beispielsweise Buchungen,</span> <span md-src-pos="228..276">Transaktionen oder Ereignisse genau zu datieren.</span> <span md-src-pos="277..300">Die korrekte Handhabung</span> <span md-src-pos="301..369">von Datum und Zeit gewährleistet nicht nur die Integrität der Daten,</span> <span md-src-pos="370..416">sondern ermöglicht auch zeitbasierte Abfragen,</span> <span md-src-pos="417..420">die</span> <span md-src-pos="421..433">für Planung,</span> <span md-src-pos="434..474">Analyse und Reporting unerlässlich sind.</span></p>
+   <h2 id="1-grundlagen" md-src-pos="476..492">1. Grundlagen</h2>
+   <h3 id="datentypen-verstehen" md-src-pos="494..519">Datentypen verstehen:</h3>
+   <ul md-src-pos="521..831">
+    <li md-src-pos="521..570"><code md-src-pos="523..529">DATE</code>: Speichert nur das Datum (<code md-src-pos="556..568">YYYY-MM-DD</code>).</li>
+    <li md-src-pos="571..620"><code md-src-pos="573..579">TIME</code>: Speichert nur die Uhrzeit (<code md-src-pos="608..618">HH:MM:SS</code>).</li>
+    <li md-src-pos="621..688"><code md-src-pos="623..633">DATETIME</code>: Kombiniert Datum und Uhrzeit (<code md-src-pos="665..686">YYYY-MM-DD HH:MM:SS</code>).</li>
+    <li md-src-pos="689..758"><code md-src-pos="691..702">TIMESTAMP</code>: Speichert Datum und Uhrzeit, berücksichtigt Zeitzonen.</li>
+    <li md-src-pos="759..831"><code md-src-pos="761..767">YEAR</code>: Speichert ein Jahr, entweder als zwei- oder vierstellige Zahl.</li>
    </ul>
-   <pre class="code-fence" md-src-pos="446..502"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUIFlFQVIoJzIwMjQtMDQtMjEnKTsgIC0tIEVyZ2VibmlzOiAyMDI0">
-  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/1464995282/?_ijt=24046832j53hh4a78gnvfni621">
+   <h4 id="beispiel" md-src-pos="833..847">Beispiel:</h4>
+   <pre class="code-fence" md-src-pos="849..917"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUIFlFQVIgKENVUkRBVEUoKSk7IC0tIEdpYnQgZGFzIGFrdHVlbGxlIEphaHIgenVyw7xjaw==">
+  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/681983779/?_ijt=ene7a2u82tsu5ao5jst3ikcddl">
   <span class="tooltiptext">Copy to clipboard</span>
-</div><code class="language-sql" md-src-pos="446..502"><span md-src-pos="446..453"></span><span md-src-pos="453..459" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="459..460"> </span><span md-src-pos="460..464" style="color: rgb(213, 95, 222);">YEAR</span><span md-src-pos="464..465">(</span><span md-src-pos="465..477" style="color: rgb(137, 202, 120);">'2024-04-21'</span><span md-src-pos="477..478">)</span><span md-src-pos="478..479" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="479..481">  </span><span md-src-pos="481..498" style="color: rgb(92, 99, 112);">-- Ergebnis: 2024</span><span md-src-pos="498..499">
-</span><span md-src-pos="499..502"></span></code></pre>
-   <h2 id="2-funktionen" md-src-pos="504..520">2. Funktionen</h2>
-   <p md-src-pos="521..545"><strong md-src-pos="521..545">Wichtige Funktionen:</strong></p>
-   <ul md-src-pos="547..940">
-    <li md-src-pos="547..681"><code md-src-pos="549..556">NOW()</code>: Gibt das aktuelle Datum und die aktuelle Uhrzeit zurück.
-     <pre class="code-fence" md-src-pos="617..681"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUIE5PVygpOyAgLS0gQmVpc3BpZWw6ICcyMDI0LTA0LTIxIDEyOjQ1OjAwJw==">
-  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/1464995282/?_ijt=24046832j53hh4a78gnvfni621">
-  <span class="tooltiptext">Copy to clipboard</span>
-</div><code class="language-sql" md-src-pos="617..681"><span md-src-pos="617..624"></span><span md-src-pos="624..630" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="630..636"> NOW()</span><span md-src-pos="636..637" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="637..639">  </span><span md-src-pos="639..673" style="color: rgb(92, 99, 112);">-- Beispiel: '2024-04-21 12:45:00'</span><span md-src-pos="673..674">
-</span><span md-src-pos="676..681"></span></code></pre></li>
-    <li md-src-pos="682..790"><code md-src-pos="684..695">CURDATE()</code>: Gibt das aktuelle Datum zurück.
-     <pre class="code-fence" md-src-pos="731..790"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUIENVUkRBVEUoKTsgIC0tIEJlaXNwaWVsOiAnMjAyNC0wNC0yMSc=">
-  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/1464995282/?_ijt=24046832j53hh4a78gnvfni621">
-  <span class="tooltiptext">Copy to clipboard</span>
-</div><code class="language-sql" md-src-pos="731..790"><span md-src-pos="731..738"></span><span md-src-pos="738..744" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="744..754"> CURDATE()</span><span md-src-pos="754..755" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="755..757">  </span><span md-src-pos="757..782" style="color: rgb(92, 99, 112);">-- Beispiel: '2024-04-21'</span><span md-src-pos="782..783">
-</span><span md-src-pos="785..790"></span></code></pre></li>
-    <li md-src-pos="791..940"><code md-src-pos="793..805">DATEDIFF()</code>: Berechnet die Differenz in Tagen zwischen zwei Daten.
-     <pre class="code-fence" md-src-pos="863..940"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUIERBVEVESUZGKCcyMDI0LTEyLTMxJywgJzIwMjQtMDEtMDEnKTsgIC0tIEVyZ2VibmlzOiAzNjU=">
-  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/1464995282/?_ijt=24046832j53hh4a78gnvfni621">
-  <span class="tooltiptext">Copy to clipboard</span>
-</div><code class="language-sql" md-src-pos="863..940"><span md-src-pos="863..870"></span><span md-src-pos="870..876" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="876..886"> DATEDIFF(</span><span md-src-pos="886..898" style="color: rgb(137, 202, 120);">'2024-12-31'</span><span md-src-pos="898..899" style="color: rgb(204, 120, 50);">,</span><span md-src-pos="899..900"> </span><span md-src-pos="900..912" style="color: rgb(137, 202, 120);">'2024-01-01'</span><span md-src-pos="912..913">)</span><span md-src-pos="913..914" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="914..916">  </span><span md-src-pos="916..932" style="color: rgb(92, 99, 112);">-- Ergebnis: 365</span><span md-src-pos="932..933">
-</span><span md-src-pos="935..940"></span></code></pre></li>
+</div><code class="language-sql" md-src-pos="849..917"><span md-src-pos="849..856"></span><span md-src-pos="856..862" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="862..863"> </span><span md-src-pos="863..867" style="color: rgb(213, 95, 222);">YEAR</span><span md-src-pos="867..879"> (CURDATE())</span><span md-src-pos="879..880" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="880..881"> </span><span md-src-pos="881..913" style="color: rgb(92, 99, 112);">-- Gibt das aktuelle Jahr zurück</span><span md-src-pos="913..914">
+</span><span md-src-pos="914..917"></span></code></pre>
+   <h2 id="2-funktionen" md-src-pos="919..935">2. Funktionen</h2>
+   <h3 id="standardfunktionen-zur-datum--und-zeitmanipulation" md-src-pos="937..992">Standardfunktionen zur Datum- und Zeitmanipulation:</h3>
+   <ul md-src-pos="994..1411">
+    <li md-src-pos="994..1061"><code md-src-pos="996..1003">NOW()</code>: Gibt das aktuelle Datum und die aktuelle Uhrzeit zurück.</li>
+    <li md-src-pos="1062..1108"><code md-src-pos="1064..1075">CURDATE()</code>: Gibt das aktuelle Datum zurück.</li>
+    <li md-src-pos="1109..1157"><code md-src-pos="1111..1122">CURTIME()</code>: Gibt die aktuelle Uhrzeit zurück.</li>
+    <li md-src-pos="1158..1239"><code md-src-pos="1160..1184">DATEDIFF(date1, date2)</code>: Berechnet die Differenz in Tagen zwischen zwei Daten.</li>
+    <li md-src-pos="1240..1316"><code md-src-pos="1242..1266">TIMEDIFF(time1, time2)</code>: Berechnet die Differenz zwischen zwei Uhrzeiten.</li>
+    <li md-src-pos="1317..1411"><code md-src-pos="1319..1355">DATE_ADD(date, INTERVAL expr type)</code>: Fügt eine spezifische Zeitspanne zu einem Datum hinzu.</li>
    </ul>
-   <h2 id="3-manipulation-und-anwendung" md-src-pos="942..974">3. Manipulation und Anwendung</h2>
-   <p md-src-pos="975..1005"><strong md-src-pos="975..1005">Datum und Zeit bearbeiten:</strong></p>
-   <ul md-src-pos="1007..1421">
-    <li md-src-pos="1007..1147">Tage zu einem Datum hinzufügen mit <code md-src-pos="1044..1055">ADDDATE()</code>.
-     <pre class="code-fence" md-src-pos="1059..1147"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUIEFERERBVEUoJzIwMjQtMDQtMjEnLCBJTlRFUlZBTCAxMCBEQVkpOyAgLS0gRXJnZWJuaXM6ICcyMDI0LTA1LTAxJw==">
-  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/1464995282/?_ijt=24046832j53hh4a78gnvfni621">
+   <h4 id="beispiele" md-src-pos="1413..1428">Beispiele:</h4>
+   <pre class="code-fence" md-src-pos="1430..1716"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUIE5PVygpOyAtLSAnMjAyNC0wNC0yMSAxMjo0NTowMCcKU0VMRUNUIENVUkRBVEUoKTsgLS0gJzIwMjQtMDQtMjEnClNFTEVDVCBDVVJUSU1FKCk7IC0tICcxMjo0NTowMCcKU0VMRUNUIERBVEVESUZGKCcyMDI0LTEyLTMxJywgJzIwMjQtMDEtMDEnKTsgLS0gMzY1ClNFTEVDVCBUSU1FRElGRignMTg6MDA6MDAnLCAnMTY6MDA6MDAnKTsgLS0gJzAyOjAwOjAwJwpTRUxFQ1QgREFURV9BREQoJzIwMjQtMDQtMjEnLCBJTlRFUlZBTCAxIFlFQVIpOyAtLSAnMjAyNS0wNC0yMSc=">
+  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/681983779/?_ijt=ene7a2u82tsu5ao5jst3ikcddl">
   <span class="tooltiptext">Copy to clipboard</span>
-</div><code class="language-sql" md-src-pos="1059..1147"><span md-src-pos="1059..1066"></span><span md-src-pos="1066..1072" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="1072..1081"> ADDDATE(</span><span md-src-pos="1081..1093" style="color: rgb(137, 202, 120);">'2024-04-21'</span><span md-src-pos="1093..1094" style="color: rgb(204, 120, 50);">,</span><span md-src-pos="1094..1095"> </span><span md-src-pos="1095..1103" style="color: rgb(213, 95, 222);">INTERVAL</span><span md-src-pos="1103..1104"> </span><span md-src-pos="1104..1106" style="color: rgb(209, 154, 102);">10</span><span md-src-pos="1106..1107"> </span><span md-src-pos="1107..1110" style="color: rgb(213, 95, 222);">DAY</span><span md-src-pos="1110..1111">)</span><span md-src-pos="1111..1112" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="1112..1114">  </span><span md-src-pos="1114..1139" style="color: rgb(92, 99, 112);">-- Ergebnis: '2024-05-01'</span><span md-src-pos="1139..1140">
-</span><span md-src-pos="1142..1147"></span></code></pre></li>
-    <li md-src-pos="1148..1286">Minuten von einer Uhrzeit subtrahieren mit <code md-src-pos="1193..1204">SUBTIME()</code>.
-     <pre class="code-fence" md-src-pos="1208..1286"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUIFNVQlRJTUUoJzE1OjMwOjAwJywgJzA6MTU6MDAnKTsgIC0tIEVyZ2VibmlzOiAnMTU6MTU6MDAn">
-  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/1464995282/?_ijt=24046832j53hh4a78gnvfni621">
-  <span class="tooltiptext">Copy to clipboard</span>
-</div><code class="language-sql" md-src-pos="1208..1286"><span md-src-pos="1208..1215"></span><span md-src-pos="1215..1221" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="1221..1230"> SUBTIME(</span><span md-src-pos="1230..1240" style="color: rgb(137, 202, 120);">'15:30:00'</span><span md-src-pos="1240..1241" style="color: rgb(204, 120, 50);">,</span><span md-src-pos="1241..1242"> </span><span md-src-pos="1242..1251" style="color: rgb(137, 202, 120);">'0:15:00'</span><span md-src-pos="1251..1252">)</span><span md-src-pos="1252..1253" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="1253..1255">  </span><span md-src-pos="1255..1278" style="color: rgb(92, 99, 112);">-- Ergebnis: '15:15:00'</span><span md-src-pos="1278..1279">
-</span><span md-src-pos="1281..1286"></span></code></pre></li>
-    <li md-src-pos="1287..1421">Abfrage von Zeitintervallen mit <code md-src-pos="1321..1330">BETWEEN</code>.
-     <pre class="code-fence" md-src-pos="1334..1421"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUICogRlJPTSBldmVudHMgV0hFUkUgc3RhcnRfdGltZSBCRVRXRUVOICcxNTowMDowMCcgQU5EICcxNzowMDowMCc7">
-  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/1464995282/?_ijt=24046832j53hh4a78gnvfni621">
-  <span class="tooltiptext">Copy to clipboard</span>
-</div><code class="language-sql" md-src-pos="1334..1421"><span md-src-pos="895..902"></span><span md-src-pos="902..908" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="908..911"> * </span><span md-src-pos="911..915" style="color: rgb(213, 95, 222);">FROM</span><span md-src-pos="915..923"> events </span><span md-src-pos="923..928" style="color: rgb(213, 95, 222);">WHERE</span><span md-src-pos="928..940"> start_time </span><span md-src-pos="940..947" style="color: rgb(213, 95, 222);">BETWEEN</span><span md-src-pos="947..948"> </span><span md-src-pos="948..958" style="color: rgb(137, 202, 120);">'15:00:00'</span><span md-src-pos="958..959"> </span><span md-src-pos="959..962" style="color: rgb(213, 95, 222);">AND</span><span md-src-pos="962..963"> </span><span md-src-pos="963..973" style="color: rgb(137, 202, 120);">'17:00:00'</span><span md-src-pos="973..974" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="974..975">
-</span><span md-src-pos="977..982"></span></code></pre></li>
+</div><code class="language-sql" md-src-pos="1430..1716"><span md-src-pos="1430..1437"></span><span md-src-pos="1437..1443" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="1443..1449"> NOW()</span><span md-src-pos="1449..1450" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="1450..1451"> </span><span md-src-pos="1451..1475" style="color: rgb(92, 99, 112);">-- '2024-04-21 12:45:00'</span><span md-src-pos="1475..1476">
+</span><span md-src-pos="1476..1482" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="1482..1492"> CURDATE()</span><span md-src-pos="1492..1493" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="1493..1494"> </span><span md-src-pos="1494..1509" style="color: rgb(92, 99, 112);">-- '2024-04-21'</span><span md-src-pos="1509..1510">
+</span><span md-src-pos="1510..1516" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="1516..1526"> CURTIME()</span><span md-src-pos="1526..1527" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="1527..1528"> </span><span md-src-pos="1528..1541" style="color: rgb(92, 99, 112);">-- '12:45:00'</span><span md-src-pos="1541..1542">
+</span><span md-src-pos="1542..1548" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="1548..1558"> DATEDIFF(</span><span md-src-pos="1558..1570" style="color: rgb(137, 202, 120);">'2024-12-31'</span><span md-src-pos="1570..1571" style="color: rgb(204, 120, 50);">,</span><span md-src-pos="1571..1572"> </span><span md-src-pos="1572..1584" style="color: rgb(137, 202, 120);">'2024-01-01'</span><span md-src-pos="1584..1585">)</span><span md-src-pos="1585..1586" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="1586..1587"> </span><span md-src-pos="1587..1593" style="color: rgb(92, 99, 112);">-- 365</span><span md-src-pos="1593..1594">
+</span><span md-src-pos="1594..1600" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="1600..1610"> TIMEDIFF(</span><span md-src-pos="1610..1620" style="color: rgb(137, 202, 120);">'18:00:00'</span><span md-src-pos="1620..1621" style="color: rgb(204, 120, 50);">,</span><span md-src-pos="1621..1622"> </span><span md-src-pos="1622..1632" style="color: rgb(137, 202, 120);">'16:00:00'</span><span md-src-pos="1632..1633">)</span><span md-src-pos="1633..1634" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="1634..1635"> </span><span md-src-pos="1635..1648" style="color: rgb(92, 99, 112);">-- '02:00:00'</span><span md-src-pos="1648..1649">
+</span><span md-src-pos="1649..1655" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="1655..1665"> DATE_ADD(</span><span md-src-pos="1665..1677" style="color: rgb(137, 202, 120);">'2024-04-21'</span><span md-src-pos="1677..1678" style="color: rgb(204, 120, 50);">,</span><span md-src-pos="1678..1679"> </span><span md-src-pos="1679..1687" style="color: rgb(213, 95, 222);">INTERVAL</span><span md-src-pos="1687..1688"> </span><span md-src-pos="1688..1689" style="color: rgb(209, 154, 102);">1</span><span md-src-pos="1689..1690"> </span><span md-src-pos="1690..1694" style="color: rgb(213, 95, 222);">YEAR</span><span md-src-pos="1694..1695">)</span><span md-src-pos="1695..1696" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="1696..1697"> </span><span md-src-pos="1697..1712" style="color: rgb(92, 99, 112);">-- '2025-04-21'</span><span md-src-pos="1712..1713">
+</span><span md-src-pos="1713..1716"></span></code></pre>
+   <h2 id="3-manipulation-und-anwendung" md-src-pos="1718..1750">3. Manipulation und Anwendung</h2>
+   <h3 id="daten--und-zeitmanipulationstechniken" md-src-pos="1752..1794">Daten- und Zeitmanipulationstechniken:</h3>
+   <ul md-src-pos="1796..2021">
+    <li md-src-pos="1796..1888"><code md-src-pos="1798..1834">ADDDATE(date, INTERVAL value unit)</code>: Fügt einem Datum eine spezifische Zeiteinheit hinzu.</li>
+    <li md-src-pos="1889..1974"><code md-src-pos="1891..1927">SUBDATE(date, INTERVAL value unit)</code>: Subtrahiert eine Zeiteinheit von einem Datum.</li>
+    <li md-src-pos="1975..2021">Verwendung von <code md-src-pos="1992..2001">BETWEEN</code> für Zeitintervalle.</li>
    </ul>
-   <h2 id="4-best-practices--lokalisierung" md-src-pos="1423..1459">4. Best Practices &amp; Lokalisierung</h2>
-   <p md-src-pos="1460..1474"><strong md-src-pos="1460..1474">Zeitzonen:</strong></p>
-   <ul md-src-pos="1476..1855">
-    <li md-src-pos="1476..1552">Passe die Anzeige von Zeitdaten an die lokalen Formate der Endbenutzer an.</li>
-    <li md-src-pos="1553..1634">Berücksichtige lokale Feiertage und Arbeitswochen bei zeitbezogenen Funktionen.</li>
-    <li md-src-pos="1635..1855">Speichere Zeitstempel konsistent in UTC und konvertiere sie bei Bedarf in lokale Zeiten.
-     <pre class="code-fence" md-src-pos="1728..1855"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUIGV2ZW50X3RpbWUgQVQgVElNRSBaT05FICdVVEMnIEFUIFRJTUUgWk9ORSAnRXVyb3BlL0Jlcmxpbic7ICAtLSBaZWl0dW13YW5kbHVuZyB2b24gVVRDIG5hY2ggQmVybGluZXIgWmVpdA==">
-  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/1464995282/?_ijt=24046832j53hh4a78gnvfni621">
+   <h4 id="beispiel-1" md-src-pos="2023..2037">Beispiel:</h4>
+   <pre class="code-fence" md-src-pos="2039..2249"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUIEFERERBVEUoJzIwMjQtMDQtMjEnLCBJTlRFUlZBTCAxMCBEQVkpOyAtLSAnMjAyNC0wNS0wMScKU0VMRUNUIFNVQkRBVEUoJzIwMjQtMDQtMjEnLCBJTlRFUlZBTCAzIE1PTlRIKTsgLS0gJzIwMjQtMDEtMjEnClNFTEVDVCAqCkZST00gZXZlbnRzCldIRVJFIHN0YXJ0X3RpbWUgQkVUV0VFTiAnMTU6MDA6MDAnIEFORCAnMTc6MDA6MDAnOw==">
+  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/681983779/?_ijt=ene7a2u82tsu5ao5jst3ikcddl">
   <span class="tooltiptext">Copy to clipboard</span>
-</div><code class="language-sql" md-src-pos="1728..1855"><span md-src-pos="1728..1735"></span><span md-src-pos="1735..1741" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="1741..1753"> event_time </span><span md-src-pos="1753..1755" style="color: rgb(213, 95, 222);">AT</span><span md-src-pos="1755..1756"> </span><span md-src-pos="1756..1760" style="color: rgb(213, 95, 222);">TIME</span><span md-src-pos="1760..1761"> </span><span md-src-pos="1761..1765" style="color: rgb(213, 95, 222);">ZONE</span><span md-src-pos="1765..1766"> </span><span md-src-pos="1766..1771" style="color: rgb(137, 202, 120);">'UTC'</span><span md-src-pos="1771..1772"> </span><span md-src-pos="1772..1774" style="color: rgb(213, 95, 222);">AT</span><span md-src-pos="1774..1775"> </span><span md-src-pos="1775..1779" style="color: rgb(213, 95, 222);">TIME</span><span md-src-pos="1779..1780"> </span><span md-src-pos="1780..1784" style="color: rgb(213, 95, 222);">ZONE</span><span md-src-pos="1784..1785"> </span><span md-src-pos="1785..1800" style="color: rgb(137, 202, 120);">'Europe/Berlin'</span><span md-src-pos="1800..1801" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="1801..1803">  </span><span md-src-pos="1803..1847" style="color: rgb(92, 99, 112);">-- Zeitumwandlung von UTC nach Berliner Zeit</span><span md-src-pos="1847..1848">
-</span><span md-src-pos="1850..1855"></span></code></pre></li>
+</div><code class="language-sql" md-src-pos="2039..2249"><span md-src-pos="2039..2046"></span><span md-src-pos="2046..2052" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="2052..2061"> ADDDATE(</span><span md-src-pos="2061..2073" style="color: rgb(137, 202, 120);">'2024-04-21'</span><span md-src-pos="2073..2074" style="color: rgb(204, 120, 50);">,</span><span md-src-pos="2074..2075"> </span><span md-src-pos="2075..2083" style="color: rgb(213, 95, 222);">INTERVAL</span><span md-src-pos="2083..2084"> </span><span md-src-pos="2084..2086" style="color: rgb(209, 154, 102);">10</span><span md-src-pos="2086..2087"> </span><span md-src-pos="2087..2090" style="color: rgb(213, 95, 222);">DAY</span><span md-src-pos="2090..2091">)</span><span md-src-pos="2091..2092" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="2092..2093"> </span><span md-src-pos="2093..2108" style="color: rgb(92, 99, 112);">-- '2024-05-01'</span><span md-src-pos="2108..2109">
+</span><span md-src-pos="2109..2115" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="2115..2124"> SUBDATE(</span><span md-src-pos="2124..2136" style="color: rgb(137, 202, 120);">'2024-04-21'</span><span md-src-pos="2136..2137" style="color: rgb(204, 120, 50);">,</span><span md-src-pos="2137..2138"> </span><span md-src-pos="2138..2146" style="color: rgb(213, 95, 222);">INTERVAL</span><span md-src-pos="2146..2147"> </span><span md-src-pos="2147..2148" style="color: rgb(209, 154, 102);">3</span><span md-src-pos="2148..2149"> </span><span md-src-pos="2149..2154" style="color: rgb(213, 95, 222);">MONTH</span><span md-src-pos="2154..2155">)</span><span md-src-pos="2155..2156" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="2156..2157"> </span><span md-src-pos="2157..2172" style="color: rgb(92, 99, 112);">-- '2024-01-21'</span><span md-src-pos="2172..2173">
+</span><span md-src-pos="2173..2179" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="2179..2182"> *
+</span><span md-src-pos="2182..2186" style="color: rgb(213, 95, 222);">FROM</span><span md-src-pos="2186..2194"> events
+</span><span md-src-pos="2194..2199" style="color: rgb(213, 95, 222);">WHERE</span><span md-src-pos="2199..2211"> start_time </span><span md-src-pos="2211..2218" style="color: rgb(213, 95, 222);">BETWEEN</span><span md-src-pos="2218..2219"> </span><span md-src-pos="2219..2229" style="color: rgb(137, 202, 120);">'15:00:00'</span><span md-src-pos="2229..2230"> </span><span md-src-pos="2230..2233" style="color: rgb(213, 95, 222);">AND</span><span md-src-pos="2233..2234"> </span><span md-src-pos="2234..2244" style="color: rgb(137, 202, 120);">'17:00:00'</span><span md-src-pos="2244..2245" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="2245..2246">
+</span><span md-src-pos="2246..2249"></span></code></pre>
+   <h2 id="4-lokalisierung" md-src-pos="2251..2270">4. Lokalisierung</h2>
+   <ul md-src-pos="2272..2407">
+    <li md-src-pos="2272..2342">Speichere alle Zeitstempel in <code md-src-pos="2304..2309">UTC</code>, um Konsistenz zu gewährleisten.</li>
+    <li md-src-pos="2343..2407">Verwende <code md-src-pos="2354..2368">CONVERT_TZ()</code> für die Umwandlung zwischen Zeitzonen.</li>
    </ul>
-   <p md-src-pos="1857..1886"><strong md-src-pos="1857..1886">Genauigkeit und Speicher:</strong></p>
-   <ul md-src-pos="1888..2071">
-    <li md-src-pos="1888..1971">Nutze den richtigen Datentyp je nach Speicherbedarf und erforderlicher Präzision.</li>
-    <li md-src-pos="1972..2071">Verwende Datenkompression, um den Speicherbedarf zu optimieren und die Performance zu verbessern.</li>
+   <h4 id="beispiel-2" md-src-pos="2409..2423">Beispiel:</h4>
+   <pre class="code-fence" md-src-pos="2425..2542"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUIENPTlZFUlRfVFooJzIwMjQtMDQtMjEgMTI6MDA6MDAnLCAnVVRDJywgJ0V1cm9wZS9CZXJsaW4nKTsgLS0gVW1yZWNobnVuZyB2b24gVVRDIG5hY2ggQmVybGluZXIgWmVpdA==">
+  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/681983779/?_ijt=ene7a2u82tsu5ao5jst3ikcddl">
+  <span class="tooltiptext">Copy to clipboard</span>
+</div><code class="language-sql" md-src-pos="2425..2542"><span md-src-pos="2425..2432"></span><span md-src-pos="2432..2438" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="2438..2450"> CONVERT_TZ(</span><span md-src-pos="2450..2471" style="color: rgb(137, 202, 120);">'2024-04-21 12:00:00'</span><span md-src-pos="2471..2472" style="color: rgb(204, 120, 50);">,</span><span md-src-pos="2472..2473"> </span><span md-src-pos="2473..2478" style="color: rgb(137, 202, 120);">'UTC'</span><span md-src-pos="2478..2479" style="color: rgb(204, 120, 50);">,</span><span md-src-pos="2479..2480"> </span><span md-src-pos="2480..2495" style="color: rgb(137, 202, 120);">'Europe/Berlin'</span><span md-src-pos="2495..2496">)</span><span md-src-pos="2496..2497" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="2497..2498"> </span><span md-src-pos="2498..2538" style="color: rgb(92, 99, 112);">-- Umrechnung von UTC nach Berliner Zeit</span><span md-src-pos="2538..2539">
+</span><span md-src-pos="2539..2542"></span></code></pre>
+   <h3 id="at-time-zone" md-src-pos="2544..2562"><code md-src-pos="2548..2562">AT TIME ZONE</code></h3>
+   <p md-src-pos="2564..2918"><code md-src-pos="2564..2578">AT TIME ZONE</code> <span md-src-pos="2579..2601">ist eine SQL-Funktion,</span> <span md-src-pos="2602..2684">die für die Umwandlung von Zeitstempeln zwischen verschiedenen Zeitzonen verwendet</span> <span md-src-pos="2685..2690">wird.</span> <span md-src-pos="2691..2733">Sie ist besonders nützlich in Anwendungen,</span> <span md-src-pos="2734..2775">die Daten von Benutzern aus verschiedenen</span> <span md-src-pos="2776..2814">geographischen Standorten verarbeiten,</span> <span md-src-pos="2815..2835">da sie sicherstellt,</span> <span md-src-pos="2836..2896">dass die Zeitangaben für alle Benutzer korrekt interpretiert</span> <span md-src-pos="2897..2918">und angezeigt werden.</span></p>
+   <h3 id="funktionsweise" md-src-pos="2920..2938">Funktionsweise</h3>
+   <p md-src-pos="2940..2993"><code md-src-pos="2940..2954">AT TIME ZONE</code> <span md-src-pos="2955..2992">kann auf zwei Weisen verwendet werden</span>:</p>
+   <ol md-src-pos="2995..3330">
+    <li md-src-pos="2995..3197"><strong md-src-pos="2998..3062">Konvertierung von <code md-src-pos="3018..3029">TIMESTAMP</code> zu <code md-src-pos="3033..3059">TIMESTAMP WITH TIME ZONE</code>:</strong> Dabei wird ein Zeitstempel, der ursprünglich ohne Zeitzoneninformation gespeichert wurde, mit einer spezifischen Zeitzone versehen.</li>
+    <li md-src-pos="3198..3330"><strong md-src-pos="3201..3238">Konvertierung zwischen Zeitzonen:</strong> Dabei wird ein <code md-src-pos="3254..3280">TIMESTAMP WITH TIME ZONE</code> von einer Zeitzone in eine andere umgerechnet.</li>
+   </ol>
+   <h3 id="beispiele-1" md-src-pos="3332..3345">Beispiele</h3>
+   <ul md-src-pos="3347..3627">
+    <li md-src-pos="3347..3473">Zeitzone einem <code md-src-pos="3364..3375">TIMESTAMP</code> hinzufügen:
+     <pre class="code-fence" md-src-pos="3390..3473"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUIFRJTUVTVEFNUCAnMjAyNC0wNC0yMSAxMjowMDowMCcgQVQgVElNRSBaT05FICdFdXJvcGUvQmVybGluJzs=">
+  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/681983779/?_ijt=ene7a2u82tsu5ao5jst3ikcddl">
+  <span class="tooltiptext">Copy to clipboard</span>
+</div><code class="language-sql" md-src-pos="3390..3473"><span md-src-pos="3390..3397"></span><span md-src-pos="3397..3403" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="3403..3404"> </span><span md-src-pos="3404..3413" style="color: rgb(213, 95, 222);">TIMESTAMP</span><span md-src-pos="3413..3414"> </span><span md-src-pos="3414..3435" style="color: rgb(137, 202, 120);">'2024-04-21 12:00:00'</span><span md-src-pos="3435..3436"> </span><span md-src-pos="3436..3438" style="color: rgb(213, 95, 222);">AT</span><span md-src-pos="3438..3439"> </span><span md-src-pos="3439..3443" style="color: rgb(213, 95, 222);">TIME</span><span md-src-pos="3443..3444"> </span><span md-src-pos="3444..3448" style="color: rgb(213, 95, 222);">ZONE</span><span md-src-pos="3448..3449"> </span><span md-src-pos="3449..3464" style="color: rgb(137, 202, 120);">'Europe/Berlin'</span><span md-src-pos="3464..3465" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="3465..3466">
+</span><span md-src-pos="3468..3473"></span></code></pre></li>
+    <li md-src-pos="3474..3627">Konvertierung zwischen Zeitzonen:
+     <pre class="code-fence" md-src-pos="3512..3627"><div class="code-fence-highlighter-copy-button" data-fence-content="U0VMRUNUIFRJTUVTVEFNUCAnMjAyNC0wNC0yMSAxMjowMDowMCcgQVQgVElNRSBaT05FICdFdXJvcGUvQmVybGluJyBBVCBUSU1FIFpPTkUgJ0FtZXJpY2EvTmV3X1lvcmsnOw==">
+  <img class="code-fence-highlighter-copy-button-icon" data-original-src="" src="http://localhost:63342/markdownPreview/681983779/?_ijt=ene7a2u82tsu5ao5jst3ikcddl">
+  <span class="tooltiptext">Copy to clipboard</span>
+</div><code class="language-sql" md-src-pos="3512..3627"><span md-src-pos="3512..3519"></span><span md-src-pos="3519..3525" style="color: rgb(213, 95, 222);">SELECT</span><span md-src-pos="3525..3526"> </span><span md-src-pos="3526..3535" style="color: rgb(213, 95, 222);">TIMESTAMP</span><span md-src-pos="3535..3536"> </span><span md-src-pos="3536..3557" style="color: rgb(137, 202, 120);">'2024-04-21 12:00:00'</span><span md-src-pos="3557..3558"> </span><span md-src-pos="3558..3560" style="color: rgb(213, 95, 222);">AT</span><span md-src-pos="3560..3561"> </span><span md-src-pos="3561..3565" style="color: rgb(213, 95, 222);">TIME</span><span md-src-pos="3565..3566"> </span><span md-src-pos="3566..3570" style="color: rgb(213, 95, 222);">ZONE</span><span md-src-pos="3570..3571"> </span><span md-src-pos="3571..3586" style="color: rgb(137, 202, 120);">'Europe/Berlin'</span><span md-src-pos="3586..3587"> </span><span md-src-pos="3587..3589" style="color: rgb(213, 95, 222);">AT</span><span md-src-pos="3589..3590"> </span><span md-src-pos="3590..3594" style="color: rgb(213, 95, 222);">TIME</span><span md-src-pos="3594..3595"> </span><span md-src-pos="3595..3599" style="color: rgb(213, 95, 222);">ZONE</span><span md-src-pos="3599..3600"> </span><span md-src-pos="3600..3618" style="color: rgb(137, 202, 120);">'America/New_York'</span><span md-src-pos="3618..3619" style="color: rgb(204, 120, 50);">;</span><span md-src-pos="3619..3620">
+</span><span md-src-pos="3622..3627"></span></code></pre></li>
+   </ul>
+   <h3 id="anwendungstipps" md-src-pos="3629..3648">Anwendungstipps</h3>
+   <ul md-src-pos="3650..4196">
+    <li md-src-pos="3650..3796"><strong md-src-pos="3652..3672">Datenintegrität:</strong> Verwende <code md-src-pos="3682..3696">AT TIME ZONE</code>, um die Konsistenz der Zeitdaten über verschiedene Systeme und Standorte hinweg zu gewährleisten.</li>
+    <li md-src-pos="3797..3969"><strong md-src-pos="3799..3826">Benutzerfreundlichkeit:</strong> Passe die Anzeige von Zeitdaten an die lokale Zeitzone des Benutzers an, um Verwirrung zu vermeiden und die Benutzererfahrung zu verbessern.</li>
+    <li md-src-pos="3970..4196"><strong md-src-pos="3972..3998">Reporting und Analyse:</strong> Stelle sicher, dass die Berichte und Analysen die Zeitdaten korrekt nach der lokalen Zeit der Ereignisse anzeigen, insbesondere wenn Ihre Datenbank Ereignisse aus verschiedenen Zeitzonen enthält.</li>
    </ul>
   </div>
  </body>
